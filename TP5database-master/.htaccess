@@ -1,0 +1,8 @@
+
+<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine On
+
+    RewriteRule ^admin$ admin.php
+    RewriteRule ^categorie/(.+)$ categorie.php?id=$1 [L]
+</IfModule>
