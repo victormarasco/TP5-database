@@ -28,7 +28,7 @@ INSERT INTO `i18n` (`id`, `name`, `lang`, `value`) VALUES
  */
 function get_lang()
 {
-    $langs_available = array('fr', 'en');
+    $langs_available = array('fr', 'en', 'es');
     if (isset($_GET['lang']) && in_array($_GET['lang'], $langs_available)) {
         return $_GET['lang'];
     }

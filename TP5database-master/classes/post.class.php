@@ -1,6 +1,7 @@
 <?php
 require_once('classes/comment.class.php');
 class Post {
+// QUESTION 0.1
 	// fonctions pour recuperer les champs de la base de donnees
 	public function getIdArticle() {
 		return $this->id_article;
@@ -54,19 +55,27 @@ class Post {
 		return $category;
 	}
 
+// QUESTION 0.3 
+// RQ : EN ANGLAIS !!  
 	// renvoi la date au format Jour num_jour Mois num_annee
 	public function getFormatedDate() {
 		return date('l d F Y',strtotime($this->getDate()));
 	}
 
+// QUESTION 0.6
+// renvoi le lien de l'article en utilisant l'ID
+	public function getPermalinkId() {
+		return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post.php?id='.$this->getId();
+	}
 	// renvoi l'url de l'article
 	public function getPermalink() {
-		return 'http://val-bd-miage.u-ga.fr/groupe5/TP4database-master/post.php?slug='.$this->getSlug();
+		return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post.php?slug='.$this->getSlug();
 	}
 	
 	public function getPermalinkEdit() {
-		return 'http://val-bd-miage.u-ga.fr/groupe5/TP4database-master/post-edit.php?id='.$this->getIdArticle();
+		return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post-edit.php?id='.$this->getIdArticle();
 	}
+// QUESTION 0.4
 	// renvoi les commentaires lies a l'article
 	public function getComments() {
 		global $pdo;
@@ -80,6 +89,7 @@ class Post {
 		return count($this->getComments());
 	}
 
+// QUESTION 0.5
 	// ajoute un commentaire
 	public function addComment($nom, $commentaire) {
 		global $pdo;

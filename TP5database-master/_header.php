@@ -3,12 +3,6 @@
 	$query = sprintf('SELECT * FROM category');
 	$results = $pdo -> query($query, PDO::FETCH_CLASS, 'Category');
 	$categories = $results -> fetchAll();
-	if(isset($_POST['deco']) ) {
-		unset($_SESSION['id_user']);
-		unset($_SESSION['active']);
-		session_write_close();
-	
-	}
 
 	if(isset($_SESSION['active']) && isset($_SESSION['id_user'])) {
 		$q=sprintf('SELECT * FROM user WHERE id_user=%s',$_SESSION['id_user']);
@@ -44,6 +38,7 @@
            <li class="nav-item active">
            </li>
          </ul>
+<?php // QUESTION 3 : ajout d'une barre de recherche dans le header ?>
 			<form action="search.php" method="get">
 			<input type="text" class="form-control" placeholder="Rechercher" name="recherche" size="10">
 		</form> 
@@ -52,12 +47,8 @@
 
 </div>              
 		<?php if(isset($_SESSION['active']) && isset($_SESSION['id_user'])) : ?>
-			<h5 style="background-color: white"><?php echo $usr->getName() ;?> </h5>
-		<form action="index.php" method="post">	
-<input type="hidden" name="deco" value="deco">		
-<input type="submit" value="Deconnection" name="disconnect" style="float: right; color: black; border: 1px dotted">
-		</form>
-		<?php else: ?> 		
+		<?php echo '<a style="color: white" href="login.php">'.$usr->getName().'</a>'; ?>
+		<?php else: ?> 	
 			<a style="float: right; color: black; border: 1px dotted" href="login.php">Connection</a>
 		<?php endif ?>     
 	</nav>  

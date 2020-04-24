@@ -10,7 +10,7 @@ class Category {
 	}
 
 	public function getPermalink() {
-		return 'http://val-bd-miage.u-ga.fr/groupe5/TP4database-master/categorie.php?id='.$this->getIdCategory();
+		return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/categorie.php?id='.$this->getIdCategory();
 	}
 	
 	public function getNbArticles() {

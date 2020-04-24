@@ -4,9 +4,15 @@ require_once('classes/post.class.php');
 $slug = $_GET['slug'];
 
 $query = sprintf('SELECT * FROM post WHERE slug=%s',$pdo->quote($slug)); 
-var_dump($query);
+// var_dump($query);
+// QUESTION 0.2
+// Récupération d'un objet Post 
 $results = $pdo->query($query, PDO::FETCH_CLASS, 'Post');
 $post = $results -> fetch();
+
+// QUESTION 1.1-2-3-4
+// Si l'article n'existe pas, la base de données ne renvoi rien
+
 /* gestion article manquant : erreur 404 */
 if ($results->rowcount() == 0) {
     add_flash('warning', 'Erreur 404 : l\'article n\'existe pas.');
@@ -56,12 +62,13 @@ if (isset($_POST['nom']) && isset($_POST['commentaire'])) {
         <footer>
           <p style="color:blue; font-style:italic">Publié le <span class="label label-default"><?php echo $post->getFormatedDate(); ?></span> par 
 			<span class="label label-default badge badge-secondary"><?php echo $post->getAuthorName();?>
-			</span><a href
-			<?php 
-					echo "=\"".$post->getPermalinkEdit()."\"";
-			?> 
+			</span>
 
-style="color:red; border: 1px solid; margin: 60px; font-style: normal"> Modifier <a/>  </p>
+<?php 
+// QUESTION 2.1 : Lien "modifier"
+echo '<a href="'.$post->getPermalinkEdit().'" style="color:red; border: 1px solid; margin: 60px; font-style: normal"> Modifier <a/>';
+			?>  
+	</p>
         </footer>
 	</br></br>
       </article>

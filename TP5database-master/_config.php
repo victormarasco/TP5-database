@@ -9,6 +9,7 @@ session_start();
 $root_url = 'http://tp4bdd.local/';
 require_once('lib/flash.php');
 require_once('lib/i18n.php');
+require_once('lib/slugify.php');
 require_once('classes/post.class.php');
 require_once('classes/category.class.php');
 require_once('classes/comment.class.php');

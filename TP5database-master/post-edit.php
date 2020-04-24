@@ -7,9 +7,13 @@ $post_id = $_GET['id'];
 $query = sprintf('SELECT * FROM post WHERE id_article=%s',$pdo->quote($post_id)); 
 $results = $pdo->query($query, PDO::FETCH_CLASS, 'Post');
 $post = $results -> fetch();
+$query2 = sprintf('SELECT * FROM category'); 
+$results2 = $pdo->query($query2, PDO::FETCH_CLASS, 'Category');
+$categories = $results2 -> fetchAll();
+
 	if($_SESSION['active']==0) {
     		add_flash('warning', 'Vous devez vous identifier pour modifier l\'article');
-    		header('Location: '.$post->getPermalink());
+    		header('Location: login.php');
 		die;	
 	}	
 
@@ -18,12 +22,10 @@ $post = $results -> fetch();
 ?>
 
 <?php 
-
-if (isset($_POST['sub']) && isset($_POST['new-title']) && isset($_POST['new-text'])) { 
-
- $query = sprintf('UPDATE `post` SET `title`=%s,`content`=%s WHERE id_article=%s',$pdo->quote($_POST['new-title']),
-$pdo->quote($_POST['new-text']),$post->getIdArticle());
-  echo $query;	
+if (isset($_POST['sub'])) { 
+ $query = sprintf('UPDATE `post` SET `id_author`=%s, `title`=%s,`content`=%s, `id_category`=%s, `slug`=%s, `date`=NOW() WHERE id_article=%s',$_SESSION['id_user'],$pdo->quote($_POST['new-title']),
+$pdo->quote($_POST['new-text']) ,$_POST['new-category'], $pdo->quote(slugify($pdo->quote($_POST['new-title']))), $post->getIdArticle());
+var_dump($query);	
   $result = $pdo->exec($query);
 	if($_POST['sub']=='Enregistrer') {
 		$query= sprintf('UPDATE `post` SET `actif`=1 WHERE id_article=%s',$post->getIdArticle());
@@ -35,6 +37,7 @@ $pdo->quote($_POST['new-text']),$post->getIdArticle());
 		$query= sprintf('UPDATE `post` SET `actif`=0 WHERE id_article=%s',$post->getIdArticle());
 		$result = $pdo->exec($query);
   		header('Location: '.$post->getPermalinkEdit());
+
   		die;
 	}
 	if($_POST['sub']=='Publier') {
@@ -43,8 +46,9 @@ $pdo->quote($_POST['new-text']),$post->getIdArticle());
   		header('Location: '.$post->getPermalink());
   		die;
 	}
-}
 
+}
+	
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -73,7 +77,7 @@ $pdo->quote($_POST['new-text']),$post->getIdArticle());
 
         </header>
 
-   
+ <?php // QUESTION 2.1-2-3-4-5 ?>
 <form action="" method="POST">
       <div class="form-group">
         <label for="new-title">Titre</label>
@@ -82,13 +86,35 @@ $pdo->quote($_POST['new-text']),$post->getIdArticle());
       </div>
       <div class="form-group">
         <label for="new-text">Article</label>
-        <textarea id="new-text" name="new-text" class="form-control" rows="5" required ><?php echo $post->getContent();?>
+        <textarea id="new-text" name="new-text" class="form-control" rows="5" <?php echo 'value="'.$post->getContent().'"';?>required ><?php echo $post->getContent();?>
 </textarea>
       </div>
-      <p class="text-right"><input type="submit" class="btn btn-primary" name="sub" value="Enregistrer comme brouillon"></p>
-      <p class="text-right"><input type="submit" class="btn btn-primary" name="sub" value="Enregistrer"></p>
-      <p class="text-right"><input type="submit" class="btn btn-primary" name="sub" value="Publier"></p>
-    </form>
+
+<div>
+<?php // changement de catégorie : par défaut la catégorie ne sera pas changée si on ne selectionne rien d'autre ?>
+	<select name="new-category">
+<?php echo '<option value="'.$post->getCategory()->getIdCategory().'"> '.$post->getCategory()->getName().' </option>'; ?>
+
+	<?php foreach ($categories as $category) :?>
+	<?php if($post->getCategoryName()!=$category->getName()) : ?>
+
+<?php echo '<option value="'.$category->getIdCategory().'"> '.$category->getName().' </option>'; ?>
+
+	<?php endif ?>
+	<?php endforeach ?>
+	</select>
+</div>
+
+<?php  // si l'article n'est pas actif, on peut le publier ou l'enregistrer comme brouillon 
+if($post->getActive() == 0) : ?>
+      	<p class="text-right"><input type="submit" class="btn btn-primary" name="sub" value="Enregistrer comme brouillon"></p>
+      	<p class="text-right"><input type="submit" class="btn btn-primary" name="sub" value="Publier"></p>
+<?php else : ?>
+	<p class="text-right"><input type="submit" class="btn btn-primary" name="sub" value="Enregistrer"></p>
+      	<p class="text-right"><input type="submit" class="btn btn-primary" name="sub" value="Enregistrer comme brouillon"></p>
+<?php endif ?>
+
+</form>
 
         <footer>
           <p>Publié le <span class="label label-default"><?php echo $post->getFormatedDate(); ?></span> par 
