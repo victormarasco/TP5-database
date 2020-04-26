@@ -10,7 +10,7 @@ $nb_post = $result2->rowcount();
 $posts = $result2 -> fetchAll();
 $query3 = 'SELECT * FROM user WHERE id_user ='.$_SESSION['id_user'].' LIMIT 1';
 
-$result3 = $pdo->query($query3)->fetch();
+$user = $pdo->query($query3, PDO::FETCH_CLASS, 'User')->fetch();
 
 if(isset($_POST["disc"])) {
 	unset($_SESSION["active"]);
@@ -46,7 +46,7 @@ $nb_post = $result2->rowcount();
 $posts = $result2 -> fetchAll();
 $query3 = 'SELECT * FROM user WHERE id_user ='.$_SESSION['id_user'].' LIMIT 1';
 
-$result3 = $pdo->query($query3)->fetch();
+$user = $pdo->query($query3)->fetch();
     } else {
         add_flash('warning', 'Identifiant ou mot de passe invalide !');
 	unset($_SESSION['active']);
@@ -62,7 +62,7 @@ $result3 = $pdo->query($query3)->fetch();
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Connexion
+    <title> <?php echo __('connexion') ?>
     </title>
     <?php include('_head.php') ?>
 </head>
@@ -72,16 +72,16 @@ $result3 = $pdo->query($query3)->fetch();
     <?php if(!isset($_SESSION['active'])) : ?>	
     <div class="container">
         <div class="card mt-3 mb-3 border-info">
-            <div class="card-header text-white bg-info">Connexion</div>
+            <div class="card-header text-white bg-info"><?php echo __('connexion'); ?></div>
             <div class="card-body">
                 <form action="" method="POST">
                     <div class="form-group">
-                        <input type="text" class="form-control" id="login" name="login" placeholder="Identifiant" required />
+                        <input type="text" class="form-control" id="login" name="login" <?php echo 'placeholder="'.__('identifiant').'"';?> required />
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required />
+                        <input type="password" class="form-control" id="password" name="password" <?php echo 'placeholder="'.__('mot-de-passe').'"';?> required />
                     </div>
-                    <p class="text-right"><input type="submit" name="connect" class="btn btn-primary" value="Connexion">
+                    <p class="text-right"><input type="submit" name="connect" class="btn btn-primary" <?php echo 'value="'.__('connexion').'"';?> >
                     </p>
 
                 </form>
@@ -92,7 +92,7 @@ $result3 = $pdo->query($query3)->fetch();
     <?php else : ?>
     <div class="container">
         <div class="card mt-3 mb-3 border-info">
-            <div class="card-header text-white bg-info"><?php echo "Bonjour ".$result3['name']." un résumé de votre activité :" ?> </div>
+            <div class="card-header text-white bg-info"><?php echo __('bonjour')." ".$user->getName().", ".__('res-activ')." "; ?> </div>
             <div class="card-body">
 		<?php if ($nb_post==0) : ?>
 		<?php echo "Vous n'avez pas encore écrit d'articles !"; ?>
@@ -107,10 +107,13 @@ $result3 = $pdo->query($query3)->fetch();
             </div>
 	</div>
 	<form action ="change-password.php" method="post">
-      <p class="text-right"><input type="submit" class="btn btn-primary" name="cp" value="Changer de mot de passe"></p>
+      <p class="text-right"><input type="submit" class="btn btn-primary" name="cp" <?php echo 'value="'.__('change-mdp').'"';?> ></p>
+	</form>
+	<form action ="create-post.php" method="post">
+      <p class="text-right"><input type="submit" class="btn btn-primary" name="cp" value="Ecrire un article" ></p>
 	</form>
 	<form action="" method="post">
-      <p class="text-right"><input type="submit" class="btn btn-primary" name="disc" value="Déconnexion"></p>
+      <p class="text-right"><input type="submit" class="btn btn-primary" name="disc" <?php echo 'value="'.__('deconnexion').'"';?>></p>
 	</form>
     </div>
 	<?php endif ?>

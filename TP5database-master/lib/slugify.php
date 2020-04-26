@@ -27,3 +27,4 @@ function slugify($string)
 
     return $slug;
 }
+

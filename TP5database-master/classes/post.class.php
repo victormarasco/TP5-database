@@ -62,6 +62,12 @@ class Post {
 		return date('l d F Y',strtotime($this->getDate()));
 	}
 
+	public function getFormatedDate2() {
+		$date=getFormatedDate();
+		$s=explode(' ',$date);
+		return __($s[0]).' '.$s[1].' '.__($s[2]).' '.$s[3];
+	}
+
 // QUESTION 0.6
 // renvoi le lien de l'article en utilisant l'ID
 	public function getPermalinkId() {
@@ -74,6 +80,16 @@ class Post {
 	
 	public function getPermalinkEdit() {
 		return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post-edit.php?id='.$this->getIdArticle();
+	}
+
+
+	public function getPermalinkLang3($lang) {
+		if($lang!=null) {
+	return 	'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post.php?id='.$this->getIdCategory().'&lang='.$lang;
+		}
+		else {
+	return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post.php?id='.$this->getIdCategory();
+		}
 	}
 // QUESTION 0.4
 	// renvoi les commentaires lies a l'article

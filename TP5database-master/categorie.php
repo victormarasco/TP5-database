@@ -12,6 +12,13 @@ $current_category = $results->fetch();
 $nb_articles = $current_category -> getNbArticlesActifs();
 $current_category_posts = $current_category -> getPosts();
 
+load_translation();
+load_translation_category();
+
+
+
+//header('Location: '.$current_category->getLinkLang());
+
 //var_dump($current_category['name']);echo '<br />';
 
 ?>
@@ -20,7 +27,7 @@ $current_category_posts = $current_category -> getPosts();
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo $current_category->getName();?></title>
+    <title><?php echo __category($current_category->getName());?></title>
     <?php include('_head.php') ?>
   </head>
   <body>
@@ -29,12 +36,12 @@ $current_category_posts = $current_category -> getPosts();
     <div class="container">
       <section>
         <header>
-          <h1>    <?php echo $current_category->getName() ?> </h1>
+          <h1>    <?php echo __category($current_category->getName()) ?> </h1>
 
             <nav aria-label="breadcrumb" role="navigation">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.php">Accueil</a></li>
-                <li class="breadcrumb-item active" aria-current="page">  <?php echo $current_category->getName() ?></li>
+                <li class="breadcrumb-item"><?php echo '<a href="index.php?lang='.get_lang().'">'.__('accueil').'</a>';?></li>
+                <li class="breadcrumb-item active" aria-current="page">  <?php echo __category($current_category->getName()); ?></li>
               </ol>
             </nav>
         </header>
@@ -54,7 +61,7 @@ $current_category_posts = $current_category -> getPosts();
                   <div class="card-body">
                     <p class="card-text"><?php echo $post->getSummary() ?>   </p>
                     <a href<?php echo "=\"".$post->getPermalink()."\""; ?>   
-			class="btn btn-primary" title<?php echo "=\"".$post->getTitle(); ?>" >Lire la suite de l'article</a>
+			class="btn btn-primary" title<?php echo "=\"".$post->getTitle(); ?>" ><?php echo __('suite-article');?></a>
                   </div>
                 </div>
             </article>

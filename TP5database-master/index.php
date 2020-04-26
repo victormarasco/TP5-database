@@ -36,7 +36,7 @@
         			<?php echo "<a href=\"".$post->getPermalink()."\""; ?> 
 					class="btn btn-primary" 
 					title="<?php echo $post->getTitle(); ?>" >
-					Lire la suite de l'article
+					<?php echo __('suite-article'); ?>
 				</a>
         		</div>
         		</div>

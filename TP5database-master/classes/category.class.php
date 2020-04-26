@@ -12,7 +12,32 @@ class Category {
 	public function getPermalink() {
 		return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/categorie.php?id='.$this->getIdCategory();
 	}
-	
+	public function getPermalinkLang($lang) {
+		global $pdo;
+		if((isset($_GET['lang']))) {
+			return 	'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/categorie.php?id='.$this->getIdCategory().'&lang='.$lang;
+		}
+		return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/categorie.php?id='.$this->getIdCategory();
+	}	
+
+	public function getPermalinkLang2($lang) {
+		if($lang!=null) {
+	return 	'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/categorie.php?id='.$this->getIdCategory().'&lang='.$lang;
+		}
+		else {
+	return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/categorie.php?id='.$this->getIdCategory();
+		}
+	}
+
+	public function getLinkLang() {
+		if(isset($_GET['lang'])) {
+			return 'categorie.php?id='.$this->getIdCategory().'&lang='.$_GET['lang'];
+		}
+		else {
+			return 'categorie.php?id='.$this->getIdCategory();
+		}
+	}
+
 	public function getNbArticles() {
 		global $pdo;
 		$query = sprintf('SELECT * FROM post WHERE id_category=%s',$this->getIdCategory());

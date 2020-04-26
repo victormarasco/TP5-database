@@ -23,25 +23,25 @@ $categories = $results2 -> fetchAll();
 
 <?php 
 if (isset($_POST['sub'])) { 
- $query = sprintf('UPDATE `post` SET `id_author`=%s, `title`=%s,`content`=%s, `id_category`=%s, `slug`=%s, `date`=NOW() WHERE id_article=%s',$_SESSION['id_user'],$pdo->quote($_POST['new-title']),
+ $query = sprintf('BEGIN; UPDATE `post` SET `id_author`=%s, `title`=%s,`content`=%s, `id_category`=%s, `slug`=%s, `date`=NOW() WHERE id_article=%s; COMMIT;',$_SESSION['id_user'],$pdo->quote($_POST['new-title']),
 $pdo->quote($_POST['new-text']) ,$_POST['new-category'], $pdo->quote(slugify($pdo->quote($_POST['new-title']))), $post->getIdArticle());
 var_dump($query);	
   $result = $pdo->exec($query);
 	if($_POST['sub']=='Enregistrer') {
-		$query= sprintf('UPDATE `post` SET `actif`=1 WHERE id_article=%s',$post->getIdArticle());
+		$query= sprintf('BEGIN; UPDATE `post` SET `actif`=1 WHERE id_article=%s; COMMIT;',$post->getIdArticle());
 		$result = $pdo->exec($query);
   		header('Location: '.$post->getPermalinkEdit());
   		die;
 	}
 	if($_POST['sub']=='Enregistrer comme brouillon') {
-		$query= sprintf('UPDATE `post` SET `actif`=0 WHERE id_article=%s',$post->getIdArticle());
+		$query= sprintf('BEGIN; UPDATE `post` SET `actif`=0 WHERE id_article=%s; COMMIT',$post->getIdArticle());
 		$result = $pdo->exec($query);
   		header('Location: '.$post->getPermalinkEdit());
 
   		die;
 	}
 	if($_POST['sub']=='Publier') {
-		$query= sprintf('UPDATE `post` SET `actif`=1 WHERE id_article=%s',$post->getIdArticle());
+		$query= sprintf('BEGIN; UPDATE `post` SET `actif`=1 WHERE id_article=%s; COMMIT;',$post->getIdArticle());
 		$result = $pdo->exec($query);
   		header('Location: '.$post->getPermalink());
   		die;

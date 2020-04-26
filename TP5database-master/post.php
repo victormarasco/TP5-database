@@ -24,6 +24,9 @@ if (isset($_POST['nom']) && isset($_POST['commentaire'])) {
 	$post->addComment($_POST['nom'], $_POST['commentaire']);
 }
 
+load_translation();
+load_translation_category();
+
 //var_dump($current_category['name']);echo '<br />';
 
 ?>
@@ -54,10 +57,10 @@ if (isset($_POST['nom']) && isset($_POST['commentaire'])) {
 
         </header>
 
-        <h3 class="card mt-3 mb-3 border-info">
+        <p class="card mt-3 mb-3 border-info">
           <?php echo $post->getContent(); ?>
 
-        </h3>
+        </p>
 
         <footer>
           <p style="color:blue; font-style:italic">Publié le <span class="label label-default"><?php echo $post->getFormatedDate(); ?></span> par 

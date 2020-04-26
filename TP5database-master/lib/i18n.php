@@ -71,3 +71,73 @@ function __($message)
 
     return $message;
 }
+
+
+/* DE MEME POUR LES CATEGORIES */
+function load_translation_category()
+{
+    global $pdo;
+
+    $translations_category = array();
+
+    $sth = $pdo->prepare('SELECT * FROM category_lang WHERE lang=?');
+    $sth->execute(array(get_lang()));
+
+    foreach ($sth->fetchAll() as $setting) {
+        $translations_category[$setting['category_name']] = $setting['value'];
+    }
+
+    return $translations_category;
+}
+$i18n_category = load_translation_category();
+function __category($message)
+{
+    global $i18n_category;
+
+    if (isset($i18n_category[$message])) {
+        return $i18n_category[$message];
+    }
+
+    return $message;
+}
+
+
+/* DE MEME POUR LES POSTS */
+function load_translation_post()
+{
+    global $pdo;
+
+    $translations_post = array();
+
+    $sth = $pdo->prepare('SELECT * FROM post_lang WHERE lang=?');
+    $sth->execute(array(get_lang()));
+
+    foreach ($sth->fetchAll() as $setting) {
+        $translations_post[$setting['post_id']] = $setting['value'];
+    }
+
+    return $translations_post;
+}
+$i18n_post = load_translation_post();
+function __post($message)
+{
+    global $i18n_post;
+
+    if (isset($i18n_post[$message])) {
+        return $i18n_post[$message];
+    }
+
+    return $message;
+}
+
+function have_lang() {
+	if(isset($_GET['lang'])) {
+		return $_GET['lang'];
+	}
+	else {
+		return null;
+	}
+}
+
+
+

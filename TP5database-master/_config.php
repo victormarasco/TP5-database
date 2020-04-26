@@ -14,6 +14,7 @@ require_once('classes/post.class.php');
 require_once('classes/category.class.php');
 require_once('classes/comment.class.php');
 require_once('classes/user.class.php');
+
 /*
 $query = 'SELECT * FROM comment';
 $posts = $pdo->query($query);
