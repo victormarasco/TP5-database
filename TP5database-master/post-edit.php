@@ -25,7 +25,7 @@ $categories = $results2 -> fetchAll();
 if (isset($_POST['sub'])) { 
  $query = sprintf('BEGIN; UPDATE `post` SET `id_author`=%s, `title`=%s,`content`=%s, `id_category`=%s, `slug`=%s, `date`=NOW() WHERE id_article=%s; COMMIT;',$_SESSION['id_user'],$pdo->quote($_POST['new-title']),
 $pdo->quote($_POST['new-text']) ,$_POST['new-category'], $pdo->quote(slugify($pdo->quote($_POST['new-title']))), $post->getIdArticle());
-var_dump($query);	
+// var_dump($query);	
   $result = $pdo->exec($query);
 	if($_POST['sub']=='Enregistrer') {
 		$query= sprintf('BEGIN; UPDATE `post` SET `actif`=1 WHERE id_article=%s; COMMIT;',$post->getIdArticle());
