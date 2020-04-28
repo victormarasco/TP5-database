@@ -117,7 +117,7 @@ if($post->getActive() == 0) : ?>
 </form>
 
         <footer>
-          <p>Publié le <span class="label label-default"><?php echo $post->getFormatedDate(); ?></span> par 
+          <p>Publié le <span class="label label-default"><?php echo $post->getFormatedDate2(); ?></span> par 
 			<span class="label label-default"><?php echo $post->getAuthorName();?>
 			</span></p>
         </footer>

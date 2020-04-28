@@ -62,7 +62,7 @@
 
 </div>              
 		<?php if(isset($_SESSION['active'])) : ?>
-		<?php echo '<a style="color: white" href="account.php">'.$usr->getName().'</a>'; ?>
+		<?php echo '<a style="color: white" href="account.php">'.$usr->getLogin().'</a>'; ?>
 		<?php else: ?> 	
 			<a style="float: right; color: black; border: 1px dotted" <?php echo 'href="login.php?lang='.get_lang().'"'; ?> ><?php echo __('connexion')?></a>
 		<?php endif ?>     

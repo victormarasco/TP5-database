@@ -25,16 +25,15 @@ function slugify($string)
        $slug= 'n-a';
     }
 
-	global $pdo;
-	$query='SELECT * from post WHERE slug='.$pdo->quote($slug);
-	$rs=$pdo->query($query)->fetch();
-	if(!$rs) {
-		return $slug;
-	}
-
-	else {
-		return $slug.'-'.rand(0,1000000);
-	}
+global $pdo;
+$query='SELECT * from post WHERE slug='.$pdo->quote($slug);
+$rs=$pdo->query($query)->fetch();
+if(!$rs) {
+	return $slug;
+}
+else {
+	return $slug.'-'.rand(0,1000000);
+}
 
 }
 

@@ -63,7 +63,7 @@ load_translation_category();
         </p>
 
         <footer>
-          <p style="color:blue; font-style:italic">Publié le <span class="label label-default"><?php echo $post->getFormatedDate(); ?></span> par 
+          <p style="color:blue; font-style:italic">Publié le <span class="label label-default"><?php echo $post->getFormatedDate2(); ?></span> par 
 			<span class="label label-default badge badge-secondary"><?php echo $post->getAuthorName();?>
 			</span>
 

@@ -74,7 +74,7 @@ class Post {
 	}
 
 	public function getFormatedDate2() {
-		$date=getFormatedDate();
+		$date=$this->getFormatedDate();
 		$s=explode(' ',$date);
 		return __($s[0]).' '.$s[1].' '.__($s[2]).' '.$s[3];
 	}
