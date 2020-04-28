@@ -61,8 +61,8 @@
 
 
 </div>              
-		<?php if(isset($_SESSION['active']) && isset($_SESSION['id_user'])) : ?>
-		<?php echo '<a style="color: white" href="login.php?lang='.get_lang().'">'.$usr->getName().'</a>'; ?>
+		<?php if(isset($_SESSION['active'])) : ?>
+		<?php echo '<a style="color: white" href="account.php">'.$usr->getName().'</a>'; ?>
 		<?php else: ?> 	
 			<a style="float: right; color: black; border: 1px dotted" <?php echo 'href="login.php?lang='.get_lang().'"'; ?> ><?php echo __('connexion')?></a>
 		<?php endif ?>     

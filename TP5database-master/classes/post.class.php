@@ -24,6 +24,17 @@ class Post {
 	public function getActive() {
 		return $this->actif;
 	}
+
+	public function getActive2() {
+		$a=$this->getActive();
+		if($a==1) {
+			return 'Actif';
+		}
+		else {
+			return 'Brouillon';
+		}
+	}
+
 	public function getDate() {
 		return $this->date;
 	}

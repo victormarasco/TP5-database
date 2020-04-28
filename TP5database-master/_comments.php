@@ -3,13 +3,6 @@
 require_once('_config.php');
 
 ?>
-
-
-
-
-
-
-
 <?php /* formulaire de commentaire */ ?>
 <div class="card mt-3 mb-3 border-info">
   <div class="card-header text-white bg-info">Votre avis ?</div>

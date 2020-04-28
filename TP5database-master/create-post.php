@@ -64,8 +64,6 @@ die;
     <div class="container">
       <article>
 
-
- <?php // QUESTION 2.1-2-3-4-5 ?>
 <form action="" method="POST">
       <div class="form-group">
         <label for="new-title">Titre</label>

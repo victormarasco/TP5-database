@@ -22,9 +22,19 @@ function slugify($string)
     $slug = strtolower($slug);
 
     if (empty($slug)) {
-        return 'n-a';
+       $slug= 'n-a';
     }
 
-    return $slug;
+	global $pdo;
+	$query='SELECT * from post WHERE slug='.$pdo->quote($slug);
+	$rs=$pdo->query($query)->fetch();
+	if(!$rs) {
+		return $slug;
+	}
+
+	else {
+		return $slug.'-'.rand(0,1000000);
+	}
+
 }
 

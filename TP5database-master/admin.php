@@ -17,12 +17,24 @@ $query = sprintf('SELECT * FROM user');
 $results = $pdo -> query($query, PDO::FETCH_CLASS, 'User');
 $users = $results -> fetchAll();
 ?>
+
+<?php 
+function estActif($actif) {
+	if($actif==1) {
+		return "Actif";
+	}
+	else {
+		return "Brouillon";
+	}
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TP4 database</title>
+    <title>Admin</title>
     <?php include('_head.php') ?>
   </head>
   <body>
@@ -71,6 +83,7 @@ $users = $results -> fetchAll();
                     <th scope="col">Categorie</th>
                     <th scope="col">Date</th>
                     <th scope="col">Nombre de commentaires</th>
+		    <th scope="col">Etat</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -86,6 +99,7 @@ $users = $results -> fetchAll();
                             <td><?php echo $post->getCategoryName(); ?></td>
                             <td><?php echo $post->getFormatedDate(); ?></td>
                             <td><?php echo $post->getNbComments(); ?></td>
+		    	    <td><?php echo $post->getActive(); ?></td>
                           </tr>
                       <?php endforeach; ?>
                 </tbody>

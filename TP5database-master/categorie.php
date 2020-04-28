@@ -9,7 +9,7 @@ if ($results->rowcount() == 0) {
     die;
 }
 $current_category = $results->fetch();
-$nb_articles = $current_category -> getNbArticlesActifs();
+$nb_posts = $current_category -> getNbArticlesActifs();
 $current_category_posts = $current_category -> getPosts();
 
 load_translation();
@@ -46,10 +46,7 @@ load_translation_category();
             </nav>
         </header>
 
-
-
-<?php
-?>	<?php if ($nb_articles==0) : echo 'Aucun article dans cette catégorie'; else:?>
+	<?php if ($nb_posts==0) : echo 'Aucun article dans cette catégorie'; else:?>
         <?php foreach ($current_category_posts as $post): ?>
 		<?php if($post->getActive()==1): ?>
             <article>
@@ -60,7 +57,7 @@ load_translation_category();
                     </h2>
                   <div class="card-body">
                     <p class="card-text"><?php echo $post->getSummary() ?>   </p>
-                    <a href<?php echo "=\"".$post->getPermalink()."\""; ?>   
+                    <?php echo '<a href="'.$post->getPermalink().'"'; ?>   
 			class="btn btn-primary" title<?php echo "=\"".$post->getTitle(); ?>" ><?php echo __('suite-article');?></a>
                   </div>
                 </div>

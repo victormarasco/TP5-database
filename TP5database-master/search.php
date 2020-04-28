@@ -33,7 +33,7 @@ function _echo_explode($string, $champ) {
 $query = sprintf('(SELECT * FROM post WHERE %s ) 
 UNION 
 (SELECT * FROM post WHERE %s )', _echo_explode($recherche,'title'),_echo_explode($recherche,'content'));
-var_dump($query);
+//var_dump($query);
 $results = $pdo -> query($query, PDO::FETCH_CLASS, 'Post');
 $nb_posts_found= $results->rowcount();
 $posts = $results
@@ -51,9 +51,9 @@ $posts = $results
     <div class="container" >
       <article>
         <?php if ($nb_posts_found==0): ?>
-        	<h1> Aucun article trouvé </h1>
+        	<h1> Aucun article trouvé pour les mots <?php echo $recherche;?></h1>
         <?php else : ?>
-		<h1><?php echo $nb_posts_found.' articles trouvés pour le mot clé '.$pdo->quote($recherche);?></h1></br></br>
+		<h1><?php echo $nb_posts_found.' articles trouvés pour le mot clé '.$recherche;?></h1></br></br>
         	<?php foreach ($posts as $post): ?>
         		<article>
         		<div class="card mt-3 mb-3">
