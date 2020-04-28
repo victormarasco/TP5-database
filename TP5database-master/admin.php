@@ -99,7 +99,7 @@ function estActif($actif) {
                             <td><?php echo $post->getCategoryName(); ?></td>
                             <td><?php echo $post->getFormatedDate(); ?></td>
                             <td><?php echo $post->getNbComments(); ?></td>
-		    	    <td><?php echo $post->getActive(); ?></td>
+		    	    <td><?php echo $post->getActive2(); ?></td>
                           </tr>
                       <?php endforeach; ?>
                 </tbody>
