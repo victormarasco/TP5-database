@@ -1,5 +1,6 @@
 <?php 
 require_once('_config.php');
+load_translation();
 $recherche = $pdo->quote($_GET['recherche']);
 
 function multiexplode ($delimiters,$string) {
@@ -43,17 +44,18 @@ $posts = $results
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TP5 database — Recherche</title>
+    <title>Le Blog Du Groupe 5</title>
     <?php include('_head.php') ?>
   </head>
   <body>
+<?php include('_overheader.php');?>
     <?php include('_header.php') ?>
     <div class="container" >
       <article>
         <?php if ($nb_posts_found==0): ?>
-        	<h1> Aucun article trouvé pour les mots <?php echo $recherche;?></h1>
+        	<h1><?php echo __('No article found'); ?></h1>
         <?php else : ?>
-		<h1><?php echo $nb_posts_found.' articles trouvés pour le mot clé '.$recherche;?></h1></br></br>
+		<h1><?php echo __('Result of the research').' : '.$nb_posts_found.' '.__('found');?></h1></br></br>
         	<?php foreach ($posts as $post): ?>
         		<article>
         		<div class="card mt-3 mb-3">
@@ -65,10 +67,9 @@ $posts = $results
         			</h2>
         		<div class="card-body">
         			<p class="card-text"><?php echo $post->getSummary(); ?></p>
-        			<?php echo "<a href=\"".$post->getPermalink()."\""; ?> 
-					class="btn btn-primary" 
-					title="<?php echo $post->getTitle(); ?>" >
-					Lire la suite de l'article
+        			<a href="<?php echo $post->getPermalink().'&lang='.get_lang();?>" 
+					class="btn btn-primary">
+					<?php echo __('Read the rest of the article'); ?>
 				</a>
         		</div>
         		</div>

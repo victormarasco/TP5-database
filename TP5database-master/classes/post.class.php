@@ -28,10 +28,10 @@ class Post {
 	public function getActive2() {
 		$a=$this->getActive();
 		if($a==1) {
-			return 'Actif';
+			return 'Active';
 		}
 		else {
-			return 'Brouillon';
+			return 'Draft copy';
 		}
 	}
 
@@ -90,18 +90,18 @@ class Post {
 	}
 	
 	public function getPermalinkEdit() {
-		return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post-edit.php?id='.$this->getIdArticle();
+		return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post-edit.php?id='.$this->getIdArticle().'&lang='.get_lang();
 	}
 
 
-	public function getPermalinkLang3($lang) {
-		if($lang!=null) {
-	return 	'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post.php?id='.$this->getIdCategory().'&lang='.$lang;
+
+	public function getPermalinkLang() {
+		global $pdo;
+		if((isset($_GET['lang']))) {
+			return 	'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post.php?slug='.$this->getSlug().'&lang='.$_GET['lang'];
 		}
-		else {
-	return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post.php?id='.$this->getIdCategory();
-		}
-	}
+		return 'http://val-bd-miage.u-ga.fr/groupe5/TP5database-master/post.php?slug='.$this->getSlug();
+	}	
 // QUESTION 0.4
 	// renvoi les commentaires lies a l'article
 	public function getComments() {

@@ -28,7 +28,8 @@ INSERT INTO `i18n` (`id`, `name`, `lang`, `value`) VALUES
  */
 function get_lang()
 {
-    $langs_available = array('fr', 'en', 'es');
+    $langs_available = array('fr','en','ru','al','de','hy','by','ba','bg','zh','hr','dk','es','gr','il','hu','is','it','jp','lt',
+'nl','no','pl','pt','ro','rs','se','cz','th','tr','ua');
     if (isset($_GET['lang']) && in_array($_GET['lang'], $langs_available)) {
         return $_GET['lang'];
     }
@@ -102,7 +103,7 @@ function __category($message)
 }
 
 
-/* DE MEME POUR LES POSTS */
+/* DE MEME POUR LES POSTS 
 function load_translation_post()
 {
     global $pdo;
@@ -129,7 +130,7 @@ function __post($message)
 
     return $message;
 }
-
+*/
 function have_lang() {
 	if(isset($_GET['lang'])) {
 		return $_GET['lang'];
@@ -138,6 +139,26 @@ function have_lang() {
 		return null;
 	}
 }
+
+
+function getLink() {
+	$expl_url=explode('/',$_SERVER['PHP_SELF']);
+	$lien=$expl_url[count($expl_url)-1];
+	// pour une catégorie
+	if(isset($_GET['id'])) {
+		$lien=$lien.'?id='.$_GET['id'];
+	}
+	// pour un post
+	if(isset($_GET['slug'])) {
+		$lien=$lien.'?slug='.$_GET['slug'];
+	}
+	if(isset($_GET['recherche'])) {
+		$lien=$lien.'?recherche='.$_GET['recherche'];
+	}
+	return $lien;
+}
+		
+
 
 
 

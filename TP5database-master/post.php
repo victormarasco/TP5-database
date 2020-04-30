@@ -15,8 +15,12 @@ $post = $results -> fetch();
 
 /* gestion article manquant : erreur 404 */
 if ($results->rowcount() == 0) {
-    add_flash('warning', 'Erreur 404 : l\'article n\'existe pas.');
-    header('Location: index.php');
+$msg=__('Error').' 404 : '.__('the article does not exist');
+
+    add_flash('warning',$msg);
+
+    header('Location: index.php?lang='.get_lang());
+    die;
 }
 
 /* traitement du formulaire de commentaire */
@@ -25,7 +29,6 @@ if (isset($_POST['nom']) && isset($_POST['commentaire'])) {
 }
 
 load_translation();
-load_translation_category();
 
 //var_dump($current_category['name']);echo '<br />';
 
@@ -35,10 +38,11 @@ load_translation_category();
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>TP5 database — <?php echo $post->getTitle(); ?></title>
+    <title>Le Blog Du Groupe 5</title>
     <?php include('_head.php') ?>
   </head>
   <body>
+	<?php include('_overheader.php');?>
     <?php include('_header.php') ?>
 
     <div class="container">
@@ -48,9 +52,9 @@ load_translation_category();
 
           <nav aria-label="breadcrumb" role="navigation">
             <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.php">Accueil</a></li>
+              <li class="breadcrumb-item"><a href="index.php"><?php echo __('Home page'); ?></a></li>
               <li class="breadcrumb-item"><a href<?php  echo "=\"".$post->getCategory()->getPermalink()."\""; ?>>
-				<?php echo $post->getCategory()->getName(); ?></a></li>
+				<?php echo __($post->getCategory()->getName()); ?></a></li>
               <li class="breadcrumb-item active" aria-current="page"><?php echo $post->getTitle(); ?></li>
             </ol>
           </nav>
@@ -63,14 +67,13 @@ load_translation_category();
         </p>
 
         <footer>
-          <p style="color:blue; font-style:italic">Publié le <span class="label label-default"><?php echo $post->getFormatedDate2(); ?></span> par 
+          <p style="color:blue; font-style:italic"><?php echo __('Published on').' ';?><span class="label label-default"><?php echo $post->getFormatedDate2(); ?></span><?php echo ' '.__('by'); ?>
 			<span class="label label-default badge badge-secondary"><?php echo $post->getAuthorName();?>
 			</span>
 
 <?php 
-// QUESTION 2.1 : Lien "modifier"
-echo '<a href="'.$post->getPermalinkEdit().'" style="color:red; border: 1px solid; margin: 60px; font-style: normal"> Modifier <a/>';
-			?>  
+// QUESTION 2.1 : Lien "modifier" ?>
+	<a href="<?php echo $post->getPermalinkEdit();?>" style="color:red; border: 1px solid; margin: 60px; font-style: normal"> <?php echo __('Modify'); ?><a/> 
 	</p>
         </footer>
 	</br></br>
@@ -92,7 +95,7 @@ echo '<a href="'.$post->getPermalinkEdit().'" style="color:red; border: 1px soli
         </div>
     <?php endforeach ?>
 <?php else: ?>
-    <div class="alert alert-info" role="alert">Il n'y a pas encore de commentaire, soyez le premier !</div>
+    <div class="alert alert-info" role="alert"><?php echo __('There are no comments yet').', '.__('be the first').'!';?></div>
 <?php endif ?>
         <?php require_once('_comments.php'); ?>
       </aside>

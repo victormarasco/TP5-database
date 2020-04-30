@@ -1,5 +1,6 @@
 <?php 
 require_once('_config.php');
+load_translation();
 if(!isset($_SESSION['id_user'])) {
 	header('Location: index.php');
 	add_flash('warning','Page inexistante');
@@ -11,22 +12,23 @@ $posts = $user->getArticles();
 }
 
 if(isset($_POST['submit'])) {
-	if($_POST['submit']=='Déconnexion') {
+	if($_POST['submit']==__('Disconnect')) {
 		unset($_SESSION['active']);
 		unset($_SESSION['id_user']);
-		header('Location: index.php');
-		add_flash('success','Vous vous êtes déconnecté !');
+		header('Location: index.php?lang='.get_lang());
+		add_flash('success',__('You signed out'));
 		die;
 	}
-	if($_POST['submit']=='Changer votre mot de passe') {
-		header('Location: set-password.php');
+	if($_POST['submit']==__('Change password')) {
+		header('Location: set-password.php?lang='.get_lang());
 		die;
 	}
-	if($_POST['submit']=='Ecrire un article') {
-		header('Location: create-post.php');
+	if($_POST['submit']==__('Write an article')) {
+		header('Location: create-post.php?lang='.get_lang());
 		die;
 	}
-}	
+}
+load_translation();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -37,23 +39,24 @@ if(isset($_POST['submit'])) {
     <?php include('_head.php') ?>
 </head>
 <body>
+	<?php include('_overheader.php');?>
     <?php include('_header.php') ?>
     <div class="container">
         <div class="card mt-3 mb-3 border-info">
-            <div class="card-header text-white bg-info">Vous avez écrit</div>
+            <div class="card-header text-white bg-info"><?php echo __('Summary of your activity');?></div>
             <div class="card-body">
 	<?php if($user->getNbArticles()==0) : ?>
-	<h1> Vous n'avez pas encore écrit d'articles</h1>
+	<h1> <?php echo __("You haven't written any articles yet");?> </h1>
 	<?php else: ?>             
 	
 	<table class="table table-striped table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">Titre</th>
-                    <th scope="col">Categorie</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Nombre de commentaires</th>
-		    <th scope="col">Etat</th>
+                    <th scope="col"><?php echo __('Title');?></th>
+                    <th scope="col"><?php echo __('Category');?></th>
+                    <th scope="col"><?php echo __('Date');?></th>
+                    <th scope="col"><?php echo __('Number of comments');?></th>
+		    <th scope="col"><?php echo __('State');?></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -63,11 +66,11 @@ if(isset($_POST['submit'])) {
                             <?php echo '<a href="'.$post->getPermalink().'">'.__($post->getTitle()).'</a>'; ?>
                             </td>
                             <td>
-                            <?php echo '<a href="'.$post->getCategory()->getPermalink().'">'.$post->getCategory()->getName().'</a>'; ?>
+                            <?php echo '<a href="'.$post->getCategory()->getPermalink().'">'.__($post->getCategory()->getName()).'</a>'; ?>
                             </td>
-                            <td><?php echo $post->getFormatedDate(); ?></td>
+                            <td><?php echo $post->getFormatedDate2(); ?></td>
                             <td><?php echo $post->getNbComments(); ?></td>
-		    	    <td><?php echo $post->getActive2(); ?></td>
+		    	    <td><?php echo __($post->getActive2()); ?></td>
                           </tr>
                       <?php endforeach; ?>
                 </tbody>
@@ -78,13 +81,13 @@ if(isset($_POST['submit'])) {
             <div class="form-group">
 	    <form action="" method="POST">
             <p class="text-right">
-		<input type="submit" name="submit" class="btn btn-primary" value="Ecrire un article">
+		<input type="submit" name="submit" class="btn btn-primary" value="<?php echo __('Write an article');?>">
             </p>
             <p class="text-right">
-		<input type="submit" name="submit" class="btn btn-primary" value="Changer votre mot de passe">
+		<input type="submit" name="submit" class="btn btn-primary" value="<?php echo __('Change password');?>">
             </p>
             <p class="text-right">
-		<input type="submit" name="submit" class="btn btn-primary" value="Déconnexion">
+		<input type="submit" name="submit" class="btn btn-primary" value="<?php echo __('Disconnect');?>">
             </p>
 	    </form>
 	    </div>

@@ -8,6 +8,7 @@
     <?php include('_head.php') ?>
   </head>
   <body>
+    <?php include('_overheader.php');?>
     <?php include('_header.php') ?>
     
     <div class="container" >
@@ -36,7 +37,7 @@
         			<?php echo "<a href=\"".$post->getPermalink()."\""; ?> 
 					class="btn btn-primary" 
 					title="<?php echo $post->getTitle(); ?>" >
-					<?php echo __('suite-article'); ?>
+					<?php echo __('Read the rest of the article'); ?>
 				</a>
         		</div>
         		</div>

@@ -11,14 +11,14 @@ if(!$r) {
 		$pdo->quote($_POST['login']),
 		$pdo->quote(password_hash($_POST['password'],PASSWORD_BCRYPT)));
 	$pdo->exec($qi);
-	add_flash('success','Bienvenue '.$_POST['login'].' merci pour votre inscription.');
+	add_flash('success',__('Welcome').' '.$_POST['login'].' '.__('thanks for registration');
 	header('Location: login.php');
 	die;
 }
 
 else {
 	header('Location: register.php');
-	add_flash('warning','E-mail ou identifiant déjà utilisé');
+	add_flash('warning',__('E-mail or username already used');
 	die;
 }
 }
@@ -41,15 +41,15 @@ else {
 
 <form action="" method="POST">
       <div class="form-group">
-        <label for="email">E-mail</label>
+        <label for="email"><?php echo __(E-mail);?></label>
         <input type="text" class="form-control" name="email" required />
       </div>
       <div class="form-group">
-        <label for="new-summary">Nom d'utilisateur</label>
+        <label for="new-summary"><?php echo __('Username');?></label>
         <input type="text" class="form-control" name="login"  required />
       </div>
       <div class="form-group">
-        <label for="password">Mot de passe</label>
+        <label for="password"><?php echo __('Password');?></label>
         <input type="text" class="form-control" name="password" required />
       </div>
       	<p class="text-right"><input type="submit" class="btn btn-primary" name="sub" value="S'inscrire"></p>

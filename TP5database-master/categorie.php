@@ -1,19 +1,20 @@
 <?php
 require_once('_config.php');
+load_translation();
 $current_category_id = $_GET['id'];
 $query = sprintf('SELECT * FROM category WHERE id_category=%s',$pdo->quote($current_category_id));
 $results = $pdo->query($query, PDO::FETCH_CLASS, 'Category');
 if ($results->rowcount() == 0) {
-    add_flash('warning', 'Erreur 404 : la catégorie n\'existe pas.');
-    header('Location: index.php');
+$msg=__('Error').' 404 : '.__('the category does not exist');
+
+    add_flash('warning',$msg);
+
+    header('Location: index.php?lang='.get_lang());
     die;
 }
 $current_category = $results->fetch();
 $nb_posts = $current_category -> getNbArticlesActifs();
 $current_category_posts = $current_category -> getPosts();
-
-load_translation();
-load_translation_category();
 
 
 
@@ -27,26 +28,27 @@ load_translation_category();
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?php echo __category($current_category->getName());?></title>
+    <title>Le Blog Du Groupe 5</title>
     <?php include('_head.php') ?>
   </head>
   <body>
+	<?php include('_overheader.php');?>
     <?php include('_header.php') ?>
 
     <div class="container">
       <section>
         <header>
-          <h1>    <?php echo __category($current_category->getName()) ?> </h1>
+          <h1>    <?php echo __($current_category->getName()) ?> </h1>
 
             <nav aria-label="breadcrumb" role="navigation">
               <ol class="breadcrumb">
-                <li class="breadcrumb-item"><?php echo '<a href="index.php?lang='.get_lang().'">'.__('accueil').'</a>';?></li>
-                <li class="breadcrumb-item active" aria-current="page">  <?php echo __category($current_category->getName()); ?></li>
+                <li class="breadcrumb-item"><?php echo '<a href="index.php?lang='.get_lang().'">'.__('Home page').'</a>';?></li>
+                <li class="breadcrumb-item active" aria-current="page">  <?php echo __($current_category->getName()); ?></li>
               </ol>
             </nav>
         </header>
 
-	<?php if ($nb_posts==0) : echo 'Aucun article dans cette catégorie'; else:?>
+	<?php if ($nb_posts==0) : echo __('No article in this category'); else:?>
         <?php foreach ($current_category_posts as $post): ?>
 		<?php if($post->getActive()==1): ?>
             <article>
@@ -57,8 +59,8 @@ load_translation_category();
                     </h2>
                   <div class="card-body">
                     <p class="card-text"><?php echo $post->getSummary() ?>   </p>
-                    <?php echo '<a href="'.$post->getPermalink().'"'; ?>   
-			class="btn btn-primary" title<?php echo "=\"".$post->getTitle(); ?>" ><?php echo __('suite-article');?></a>
+                    <?php echo '<a href="'.$post->getPermalink().'&lang='.get_lang().'"'; ?>   
+			class="btn btn-primary" title<?php echo "=\"".$post->getTitle(); ?>" ><?php echo __('Read the rest of the article');?></a>
                   </div>
                 </div>
             </article>

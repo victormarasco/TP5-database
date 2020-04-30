@@ -11,11 +11,11 @@ if(isset($_POST['submit'])) {
 		
 		$r=$pdo->exec($qi);
 		if($r){header('Location: account.php');
-		add_flash('success','Mot de passe changé !');
+		add_flash('success',__('The password has been changed').' !');
 		die;}
 	}
 	else {
-		add_flash('warning','Mot de passe invalide');
+		add_flash('warning',__('Invalid password').' !');
 	}
 }
 ?>
@@ -25,7 +25,7 @@ if(isset($_POST['submit'])) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Nouveau mot de passe</title>
+    <title>Le Blog Du Groupe 5</title>
     <?php include('_head.php') ?>
 </head>
 
@@ -33,16 +33,16 @@ if(isset($_POST['submit'])) {
     <?php include('_header.php') ?>
     <div class="container">
         <div class="card mt-3 mb-3 border-info">
-            <div class="card-header text-white bg-info">Changer le mot de passe</div>
+            <div class="card-header text-white bg-info"><?php echo __('Change password');?></div>
             <div class="card-body">
                 <form action="" method="POST">
                     <div class="form-group">
-                        <input type="password" class="form-control" name="old-password" placeholder="Ancien mot de passe" required />
+                        <input type="password" class="form-control" name="old-password" placeholder="<?php echo __('Old password');?>" required />
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" name="new-password" placeholder="Nouveau mot de passe" required />
+                        <input type="password" class="form-control" name="new-password" placeholder="<?php echo __('New password');?>" required />
                     </div>
-                    <p class="text-right"><input type="submit" name="submit" class="btn btn-primary" value="Valider">
+                    <p class="text-right"><input type="submit" name="submit" class="btn btn-primary" value="<?php echo __('Validate');?>">
                     </p>
 
                 </form>	
