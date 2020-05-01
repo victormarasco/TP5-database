@@ -32,8 +32,15 @@ if(!$rs) {
 	return $slug;
 }
 else {
-	return $slug.'-'.rand(0,1000000);
-}
+	$slug=$slug.'-'.rand(0,1000000);
+	$query2='SELECT * from post WHERE slug='.$pdo->quote($slug);
+	$rs2=$pdo->query($query)->fetch();
+	if(!$rs) {
+		return $slug;
+	}	
+	else {
+		return $slug.'-'.rand(0,1000000);
+	}
 
 }
-
+}

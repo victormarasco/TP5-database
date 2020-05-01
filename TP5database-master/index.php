@@ -34,7 +34,7 @@
         			</h2>
         		<div class="card-body">
         			<p class="card-text"><?php echo $post->getSummary(); ?></p>
-        			<?php echo "<a href=\"".$post->getPermalink()."\""; ?> 
+                    <?php echo '<a href="'.$post->getPermalink().'&lang='.get_lang().'"'; ?>
 					class="btn btn-primary" 
 					title="<?php echo $post->getTitle(); ?>" >
 					<?php echo __('Read the rest of the article'); ?>
