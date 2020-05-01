@@ -11,14 +11,14 @@ if(!$r) {
 		$pdo->quote($_POST['login']),
 		$pdo->quote(password_hash($_POST['password'],PASSWORD_BCRYPT)));
 	$pdo->exec($qi);
-	add_flash('success',__('Welcome').' '.$_POST['login'].' '.__('thanks for registration');
+	add_flash('success',__('Welcome').' '.$_POST['login'].' '.__('thanks for registration'));
 	header('Location: login.php');
 	die;
 }
 
 else {
 	header('Location: register.php');
-	add_flash('warning',__('E-mail or username already used');
+	add_flash('warning',__('E-mail or username already used'));
 	die;
 }
 }
@@ -34,6 +34,7 @@ else {
     <?php include('_head.php') ?>
   </head>
   <body>
+<?php include ('_overheader.php');?>
     <?php include('_header.php') ?>
 
     <div class="container">
@@ -41,7 +42,7 @@ else {
 
 <form action="" method="POST">
       <div class="form-group">
-        <label for="email"><?php echo __(E-mail);?></label>
+        <label for="email"><?php echo __('E-mail');?></label>
         <input type="text" class="form-control" name="email" required />
       </div>
       <div class="form-group">
@@ -50,7 +51,7 @@ else {
       </div>
       <div class="form-group">
         <label for="password"><?php echo __('Password');?></label>
-        <input type="text" class="form-control" name="password" required />
+        <input type="password" class="form-control" name="password" required />
       </div>
       	<p class="text-right"><input type="submit" class="btn btn-primary" name="sub" value="S'inscrire"></p>
 </form>

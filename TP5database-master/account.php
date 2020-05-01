@@ -46,7 +46,7 @@ load_translation();
             <div class="card-header text-white bg-info"><?php echo __('Summary of your activity');?></div>
             <div class="card-body">
 	<?php if($user->getNbArticles()==0) : ?>
-	<h1> <?php echo __("You haven't written any articles yet");?> </h1>
+	<h1> <?php echo __("You haven't written any article yet");?> </h1>
 	<?php else: ?>             
 	
 	<table class="table table-striped table-hover">
